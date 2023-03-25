@@ -1,13 +1,43 @@
-<template>
-$END$
-</template>
-
 <script>
+import AbilityBox from './AbilityBox.vue'
+
 export default {
-name: "Attaques"
+  name: 'Attaques-pokemon',
+  components: { AbilityBox },
+  props: ['info'],
+  computed: {
+    getMoves(){
+      return this.info.moves.map((move) => {
+        return move.move.name
+      })
+    },
+    getLevel(){
+      return this.info.moves.map((move) => {
+        return move.version_group_details[0].level_learned_at
+      })
+    }
+  }
 }
 </script>
 
-<style scoped>
+<template>
+  <div id="moves">
+    <p>Moves</p>
+    <AbilityBox v-for='(move, index) in getMoves' v-bind:key="`${index}ability`" :name=move :level=getLevel[index]></AbilityBox>
+  </div>
+</template>
 
+<style scoped>
+#moves{
+  display: flex;
+  flex-direction: column;
+  height: 364px;
+  width: 20%;
+  margin-top: 24px;
+  border-radius: 16px;
+  margin-right: auto;
+  margin-left: 10%;
+  padding: 32px;
+  background-color: cadetblue;
+}
 </style>

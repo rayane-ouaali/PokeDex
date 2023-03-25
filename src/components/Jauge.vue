@@ -22,22 +22,22 @@ export default {
     },
     statName() {
       if (this.namestat == 1) {
-        return 'PV :'
+        return 'HP :'
       }
       if (this.namestat == 2) {
-        return 'Attaque :'
+        return 'Attack :'
       }
       if (this.namestat == 3) {
-        return 'Défense :'
+        return 'Defense :'
       }
       if (this.namestat == 4) {
-        return 'Att. Spé'
+        return 'Spe. Atk :'
       }
       if (this.namestat == 5) {
-        return 'Déf. Spé :'
+        return 'Spé. Def :'
       }
       if (this.namestat == 6) {
-        return 'Vitesse :'
+        return 'Speed :'
       } else return '?'
     }
   }
@@ -46,11 +46,11 @@ export default {
 
 <template>
   <div id='container'>
-    <div id='nomStat'>
+    <div id='statName'>
       {{ statName }}
     </div>
     <div id='jauge'>
-      <div id='barre' :style="{ 'width': statSize + 'px', 'background-color': statColor }" />
+      <div id='bar' :style="{ 'width': statSize + 'px', 'background-color': statColor }" />
       <p>{{ stat }}</p>
     </div>
   </div>
@@ -58,7 +58,7 @@ export default {
 </template>
 
 <style scoped>
-#nomStat {
+#statName {
   margin-right: 10px;
   width: 65px;
 }
@@ -68,7 +68,7 @@ export default {
   flex-direction: row;
 }
 
-#barre {
+#bar {
   height: 16px;
   width: 200px;
   border-radius: 12px;

@@ -1,16 +1,11 @@
 <script>
 import HeaderPokemon from './components/Header.vue'
 import PokemonBox from './components/PokemonBox.vue'
-import Header from './components/Header.vue'
+import AttaquesPokemon from './components/Attaques.vue'
 
 export default {
-  computed: {
-    Header() {
-      return Header
-    }
-  },
   emits: ['search', 'update:modelValue'],
-  components: { HeaderPokemon, PokemonBox },
+  components: { AttaquesPokemon, HeaderPokemon, PokemonBox },
   async created() {
     this.json = await this.fetchPokemon(this.currentPoke)
   },
@@ -51,11 +46,12 @@ export default {
 </script>
 
 <template>
-  <HeaderPokemon/>
+  <HeaderPokemon />
   <div id='container'>
     <div id='pkmnbox'>
       <PokemonBox @increment='increment' @decrement='decrement' v-if='json' :info=json />
     </div>
+    <AttaquesPokemon v-if='json' :info=json></AttaquesPokemon>
   </div>
 </template>
 
