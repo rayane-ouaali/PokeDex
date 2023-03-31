@@ -70,18 +70,27 @@ export default {
   #container {
     flex-direction: row;
   }
+  #pokemonBox{
+    flex-direction: row;
+    width: 80%;
+    margin-top: 64px;
+    border-radius: 16px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 32px;
+    background-color: cadetblue;
+  }
 }
 
-#pokemonBox {
+@media (max-width: 600px) {
+  #pokemonBox {
+    flex-direction: column;
+    background-color: cadetblue;
+  }
+}
+
+#pokemonBox{
   display: flex;
-  flex-direction: row;
-  width: 80%;
-  margin-top: 64px;
-  border-radius: 16px;
-  margin-right: auto;
-  margin-left: auto;
-  padding: 32px;
-  background-color: cadetblue;
 }
 
 #info {
