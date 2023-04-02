@@ -41,7 +41,9 @@ export default {
 
 <template>
   <div id='pokemonBox'>
-    <ChevronLeft :size='48' @click="this.$emit('decrement')" />
+    <button type='button' @click="this.$emit('decrement')">
+      <ChevronLeft :size='48' />
+    </button>
     <div id='container'>
       <div id='pokemonInfo'>
         <h1>#{{ this.info.id }} | <span>{{ getName }}</span></h1>
@@ -55,7 +57,9 @@ export default {
         Total : {{ getSum }}
       </div>
     </div>
-    <ChevronRight :size='48' @click="this.$emit('increment')" />
+    <button type='button' @click="this.$emit('increment')">
+      <ChevronRight :size='48' />
+    </button>
   </div>
 </template>
 
@@ -70,7 +74,8 @@ export default {
   #container {
     flex-direction: row;
   }
-  #pokemonBox{
+
+  #pokemonBox {
     flex-direction: row;
     width: 80%;
     margin-top: 64px;
@@ -78,18 +83,18 @@ export default {
     margin-right: auto;
     margin-left: auto;
     padding: 32px;
-    background-color: cadetblue;
+    background-color: #0075BE;
   }
 }
 
 @media (max-width: 600px) {
   #pokemonBox {
     flex-direction: column;
-    background-color: cadetblue;
+    background-color: #0075BE;
   }
 }
 
-#pokemonBox{
+#pokemonBox {
   display: flex;
 }
 
@@ -117,5 +122,23 @@ img {
 
 span {
   text-transform: capitalize;
+}
+
+button {
+  width: fit-content;
+  height: fit-content;
+  margin-top: auto;
+  margin-bottom: auto;
+  background-color: unset;
+  border: 1px solid #000;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 4px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: white;
+  border: unset;
 }
 </style>

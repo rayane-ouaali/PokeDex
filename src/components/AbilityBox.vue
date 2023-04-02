@@ -13,7 +13,7 @@ export default {
 
 <style scoped>
 #move {
-  height: 40px;
+  height: fit-content;
   width: 100%;
   border-radius: 4px;
   margin: 2px;

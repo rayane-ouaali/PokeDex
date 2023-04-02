@@ -23,7 +23,9 @@ export default {
 <template>
   <div id="moves">
     <p>Moves</p>
-    <AbilityBox v-for='(move, index) in getMoves' v-bind:key="`${index}ability`" :name=move :level=getLevel[index]></AbilityBox>
+    <div id="abilities">
+      <AbilityBox v-for='(move, index) in getMoves' v-bind:key="`${index}ability`" :name=move :level=getLevel[index]></AbilityBox>
+    </div>
   </div>
 </template>
 
@@ -38,6 +40,14 @@ export default {
   margin-right: auto;
   margin-left: 10%;
   padding: 32px;
-  background-color: cadetblue;
+  background-color: #FFCC00;
+  overflow: hidden;
+}
+
+#abilities{
+  border: 2px solid #000;
+  border-radius: 4px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 </style>

@@ -15,10 +15,10 @@ export default {
   },
   computed: {
     statColor() {
-      return this.hslToHex(this.stat*(200/255))
+      return this.hslToHex(this.stat > 180 ? 180 : this.stat)
     },
     statSize() {
-      return this.stat * 2.7
+      return this.stat * 2.55
     },
     statName() {
       if (this.namestat == 1) {
