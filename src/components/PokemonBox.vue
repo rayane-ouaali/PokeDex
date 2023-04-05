@@ -83,14 +83,14 @@ export default {
     margin-right: auto;
     margin-left: auto;
     padding: 32px;
-    background-color: #0075BE;
+    background-color: rgb(160, 95, 95, 0.8);
   }
 }
 
 @media (max-width: 600px) {
   #pokemonBox {
     flex-direction: column;
-    background-color: #0075BE;
+    background-color: rgb(160, 95, 95, 0.8);
   }
 }
 

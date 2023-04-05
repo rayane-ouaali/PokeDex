@@ -5,6 +5,8 @@
   height: 100%;
   width: 100%;
   font-weight: normal;
+  background-image: url("public/background.jpg");
+  background-size: cover;
 }
 
 a,

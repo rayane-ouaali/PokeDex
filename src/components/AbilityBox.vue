@@ -16,7 +16,7 @@ export default {
   height: fit-content;
   width: 100%;
   border-radius: 4px;
-  margin: 2px;
+  margin: 4px 2px;
   background-color: white;
 }
 

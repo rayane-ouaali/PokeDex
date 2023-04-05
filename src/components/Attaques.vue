@@ -40,7 +40,7 @@ export default {
   margin-right: auto;
   margin-left: 10%;
   padding: 32px;
-  background-color: #FFCC00;
+  background-color: rgba(95, 113, 160, 0.8);
   overflow: hidden;
 }
 
@@ -49,5 +49,12 @@ export default {
   border-radius: 4px;
   overflow-y: scroll;
   overflow-x: hidden;
+  background-color: grey;
+}
+
+p{
+  text-align: center;
+  font-size: large;
+  color: black;
 }
 </style>
