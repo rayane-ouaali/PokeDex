@@ -7,7 +7,8 @@ export default {
 
 <template>
   <div id='move'>
-    <p>{{ name }} | Level : {{ level }}</p>
+    <p v-if='level'>{{ name }} | Level : {{ level }}</p>
+    <p v-else>{{ name }}</p>
   </div>
 </template>
 

@@ -5,15 +5,27 @@ export default {
   name: 'Attaques-pokemon',
   components: { AbilityBox },
   props: ['info'],
-  computed: {
-    getMoves(){
-      return this.info.moves.map((move) => {
+  data(){
+    return{
+      currentLearnMethod: "level-up"
+    }
+  },
+  methods: {
+    getMovesByType(method){
+      return this.info.moves.filter(type => type.version_group_details[0].move_learn_method.name == method).map((move) => {
         return move.move.name
       })
-    },
+    }
+  },
+  computed: {
     getLevel(){
-      return this.info.moves.map((move) => {
+      return this.info.moves.filter(type => type.version_group_details[0].move_learn_method.name == "level-up").map((move) => {
         return move.version_group_details[0].level_learned_at
+      })
+    },
+    getLevelMoves(){
+      return this.info.moves.filter(type => type.version_group_details[0].move_learn_method.name == "level-up").map((move) => {
+        return move.move.name
       })
     }
   }
@@ -23,8 +35,17 @@ export default {
 <template>
   <div id="moves">
     <p>Moves</p>
-    <div id="abilities">
-      <AbilityBox v-for='(move, index) in getMoves' v-bind:key="`${index}ability`" :name=move :level=getLevel[index]></AbilityBox>
+    <select v-model='currentLearnMethod'>
+      <option value="level-up">--Select learn method--</option>
+      <option value="level-up">Level up</option>
+      <option value="machine">Machine</option>
+      <option value="egg">Egg</option>
+    </select>
+    <div id="abilities" v-if='currentLearnMethod == "level-up"'>
+      <AbilityBox v-for='(move, index) in getLevelMoves' v-bind:key="`${index}ability`" :name=move :level=getLevel[index]></AbilityBox>
+    </div>
+    <div id="abilities" v-else>
+      <AbilityBox v-for='(move, index) in getMovesByType(currentLearnMethod)' v-bind:key="`${index}ability`" :name=move></AbilityBox>
     </div>
   </div>
 </template>
