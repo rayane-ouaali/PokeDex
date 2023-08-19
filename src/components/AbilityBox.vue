@@ -24,5 +24,6 @@ export default {
 p {
   text-align: center;
   text-transform: capitalize;
+  color: black;
 }
 </style>

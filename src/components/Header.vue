@@ -2,8 +2,8 @@
   <div id='header'>
     <p>PokeDex</p>
     <div id='searchBox'>
-      <input id='pokemonName' :value='this.textField' @input="this.$emit('update:modelValue',this.textField)">
-      <button id='search' @click="this.$emit('search', this.textField)">🔎</button>
+      <input id='pokemonName' v-model='this.textField'>
+      <button id='search' @click="this.$emit('search', this.textField.toLowerCase())">🔎</button>
     </div>
   </div>
 </template>
@@ -21,6 +21,9 @@ export default {
     test(){
       console.log(this.textField)
     }
+  },
+  updated() {
+    console.log(this.textField)
   }
 }
 </script>

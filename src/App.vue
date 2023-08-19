@@ -2,10 +2,11 @@
 import HeaderPokemon from './components/Header.vue'
 import PokemonBox from './components/PokemonBox.vue'
 import AttaquesPokemon from './components/Attaques.vue'
+import Evolutions from "./components/Evolutions.vue";
 
 export default {
   emits: ['search', 'update:modelValue'],
-  components: { AttaquesPokemon, HeaderPokemon, PokemonBox },
+  components: { Evolutions, AttaquesPokemon, HeaderPokemon, PokemonBox },
   async created() {
     this.json = await this.fetchPokemon(this.currentPoke)
   },
@@ -13,7 +14,7 @@ export default {
     return {
       txtField: 'enter pokemon name',
       currentPoke: 1,
-      json: undefined
+      json: undefined,
     }
   },
   methods: {
@@ -26,9 +27,16 @@ export default {
         console.log(e)
       }
     },
+    async search(pokemonName) {
+      const pkmn = await this.fetchPokemon(pokemonName)
+      this.json = pkmn
+      this.currentPoke = pkmn.id
+    },
     async increment() {
-      this.currentPoke++
-      this.json = await this.fetchPokemon(this.currentPoke)
+      if (this.currentPoke < 1010) {
+        this.currentPoke++
+        this.json = await this.fetchPokemon(this.currentPoke)
+      }
     },
     async decrement() {
       if (this.currentPoke > 1) {
@@ -36,22 +44,19 @@ export default {
         this.json = await this.fetchPokemon(this.currentPoke)
       }
     },
-    async search(message) {
-      console.log(message)
-      this.json = await this.fetchPokemon(message)
-    }
   }
 }
 
 </script>
 
 <template>
-  <HeaderPokemon />
+  <HeaderPokemon @search="search" />
   <div id='container'>
     <div id='pkmnbox'>
       <PokemonBox @increment='increment' @decrement='decrement' v-if='json' :info=json />
     </div>
     <AttaquesPokemon v-if='json' :info=json></AttaquesPokemon>
+    <Evolutions></Evolutions>
   </div>
 </template>
 
