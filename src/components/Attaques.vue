@@ -55,11 +55,9 @@ export default {
   display: flex;
   flex-direction: column;
   height: 364px;
-  width: 20%;
+  width: 25%;
   margin-top: 24px;
   border-radius: 16px;
-  margin-right: auto;
-  margin-left: 10%;
   padding: 32px;
   background-color: rgba(95, 113, 160, 0.8);
   overflow: hidden;

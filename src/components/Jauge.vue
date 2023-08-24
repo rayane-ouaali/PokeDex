@@ -18,7 +18,7 @@ export default {
       return this.hslToHex(this.stat > 180 ? 180 : this.stat)
     },
     statSize() {
-      return this.stat * 2.55
+      return this.stat * 1.95
     },
     statName() {
       if (this.namestat == 1) {
