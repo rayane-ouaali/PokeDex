@@ -10,12 +10,20 @@ export default {
   components: { Evolutions, AttaquesPokemon, HeaderPokemon, PokemonBox },
   async created() {
     this.pokeInfo = await this.fetchPokemon(store.currentPokemon)
-    store.evolutionFamily = await store.fetchEvolutionData(store.currentPokemon)
+    store.evolutionData = await store.fetchEvolutionData(store.currentPokemon)
+    store.evolutionFamily = await store.getEvolutionFamily(store.evolutionData)
+    this.pokeEvolutionInfo.evolutionFamily = store.evolutionFamily
+    store.evolutionImages = await store.fetchEvolutionsImg(store.evolutionFamily)
+    this.pokeEvolutionInfo.evolutionImages = store.evolutionImages
   },
   data() {
     return {
       txtField: 'enter pokemon name',
-      pokeInfo: null
+      pokeInfo: null,
+      pokeEvolutionInfo: {
+        evolutionFamily: store.evolutionFamily,
+        evolutionImages: store.evolutionImages
+      }
     }
   },
   methods: {
@@ -33,21 +41,35 @@ export default {
       if(pkmn){
         this.pokeInfo = pkmn
         store.currentPokemon = pkmn.id
-        store.evolutionFamily = await store.fetchEvolutionData(store.currentPokemon)
+        store.evolutionData = await store.fetchEvolutionData(store.currentPokemon)
+        store.evolutionFamily = await store.getEvolutionFamily(store.evolutionData)
+        this.pokeEvolutionInfo.evolutionFamily = store.evolutionFamily
+        store.evolutionImages = await store.fetchEvolutionsImg(store.evolutionFamily)
+        this.pokeEvolutionInfo.evolutionImages = store.evolutionImages
       }
     },
     async increment() {
       if (store.currentPokemon < 1010) {
         store.increment()
         this.pokeInfo = await this.fetchPokemon(store.currentPokemon)
-        store.evolutionFamily = await store.fetchEvolutionData(store.currentPokemon)
+        store.evolutionData = await store.fetchEvolutionData(store.currentPokemon)
+        store.evolutionFamily = await store.getEvolutionFamily(store.evolutionData)
+        this.pokeEvolutionInfo.evolutionFamily = store.evolutionFamily
+        store.evolutionImages = await store.fetchEvolutionsImg(store.evolutionFamily)
+        this.pokeEvolutionInfo.evolutionImages = store.evolutionImages
       }
     },
     async decrement() {
       if (store.currentPokemon > 1) {
         store.decrement()
         this.pokeInfo = await this.fetchPokemon(store.currentPokemon)
-        store.evolutionFamily = await store.fetchEvolutionData(store.currentPokemon)
+        store.evolutionData = await store.fetchEvolutionData(store.currentPokemon)
+        store.evolutionFamily = await store.getEvolutionFamily(store.evolutionData)
+        this.pokeEvolutionInfo.evolutionFamily = store.evolutionFamily
+        console.log(store.evolutionFamily)
+        store.evolutionImages = await store.fetchEvolutionsImg(store.evolutionFamily)
+        this.pokeEvolutionInfo.evolutionImages = store.evolutionImages
+        console.log(store.evolutionImages)
       }
     },
   },
@@ -62,7 +84,7 @@ export default {
     </div>
     <div id="other_infos">
       <AttaquesPokemon v-if='this.pokeInfo' :info=this.pokeInfo ></AttaquesPokemon>
-      <Evolutions @search="search"/>
+      <Evolutions :v-if='this.pokeEvolutionInfo' :info=this.pokeEvolutionInfo @search="search"/>
     </div>
   </div>
 </template>
