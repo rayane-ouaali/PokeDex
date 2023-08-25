@@ -3,37 +3,45 @@ import {store} from "../store/store";
 
 export default {
   name: 'Evolutions',
-  async created() {
-    const evolutionFamily = await this.fetchEvolutionFamily(store.currentPokemon)
-    this.evolutionFamily = evolutionFamily
-  },
-  data(){
-    return {
-      evolutionFamily: null
-    }
-  },
-  methods: {
-    fetchEvolutionFamily: async (currentPoke) => {
-      try {
-        const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${currentPoke}`)
-            .then((response) => response.json())
-        return await fetch(pokemon.evolution_chain.url)
-            .then((response) => response.json())
-      } catch (e) {
-        console.log(e)
-      }
-    },
-  },
   computed: {
     getEvolutionFamily() {
-      const evol = this.evolutionFamily
+      const evol = store.evolutionFamily
+      console.log(evol)
       if(!evol){
         return []
       }
       if (evol.chain.evolves_to.length > 0) {
-        return [evol.chain.evolves_to[0].species.name]
+        if(evol.chain.evolves_to[0].evolves_to.length > 0){
+          return [{
+            name: evol.chain.species.name,
+            url: `https://pokeapi.co/api/v2/pokemon/${evol.chain.species.name}`
+          }, {
+            name: evol.chain.evolves_to[0].species.name,
+            url: `https://pokeapi.co/api/v2/pokemon/${evol.chain.evolves_to[0].species.name}`
+          }, {
+            name: evol.chain.evolves_to[0].evolves_to[0].species.name,
+            url: `https://pokeapi.co/api/v2/pokemon/${evol.chain.evolves_to[0].evolves_to[0].species.name}`
+          }]
+        }
+        return [{
+          name: evol.chain.species.name,
+          url: `https://pokeapi.co/api/v2/pokemon/${evol.chain.species.name}`
+        }, {
+          name: evol.chain.evolves_to[0].species.name,
+          url: `https://pokeapi.co/api/v2/pokemon/${evol.chain.evolves_to[0].species.name}`
+        }]
       }
-      return []
+    },
+  },
+  methods: {
+    getImg: async (currentPoke) => {
+      try {
+        const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${currentPoke}`)
+            .then((response) => response.json())
+        return pokemon.sprites.other["official-artwork"].front_default
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }
@@ -42,8 +50,10 @@ export default {
 <template>
   <div class='littleBox' id='evolutions'>
     <p>Evolution family :</p>
-    {{ getEvolutionFamily.join('-') }}
+    <a v-for="pokemon in getEvolutionFamily" @click="this.$emit('search', pokemon.name)" >
 
+      {{ pokemon.name }}
+    </a>
   </div>
 </template>
 
@@ -52,7 +62,7 @@ export default {
   display: flex;
   flex-direction: column;
   height: 364px;
-  width: 25%;
+  width: 40%;
   margin-top: 24px;
   border-radius: 16px;
   margin-left: 5%;

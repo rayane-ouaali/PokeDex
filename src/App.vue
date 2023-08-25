@@ -9,12 +9,13 @@ export default {
   emits: ['search', 'update:modelValue'],
   components: { Evolutions, AttaquesPokemon, HeaderPokemon, PokemonBox },
   async created() {
-    this.json = await this.fetchPokemon(store.currentPokemon)
+    this.pokeInfo = await this.fetchPokemon(store.currentPokemon)
+    store.evolutionFamily = await store.fetchEvolutionData(store.currentPokemon)
   },
   data() {
     return {
       txtField: 'enter pokemon name',
-      json: undefined,
+      pokeInfo: null
     }
   },
   methods: {
@@ -29,22 +30,27 @@ export default {
     },
     async search(pokemonName) {
       const pkmn = await this.fetchPokemon(pokemonName)
-      this.json = pkmn
-      store.currentPokemon = pkmn.id
+      if(pkmn){
+        this.pokeInfo = pkmn
+        store.currentPokemon = pkmn.id
+        store.evolutionFamily = await store.fetchEvolutionData(store.currentPokemon)
+      }
     },
     async increment() {
       if (store.currentPokemon < 1010) {
         store.increment()
-        this.json = await this.fetchPokemon(store.currentPokemon)
+        this.pokeInfo = await this.fetchPokemon(store.currentPokemon)
+        store.evolutionFamily = await store.fetchEvolutionData(store.currentPokemon)
       }
     },
     async decrement() {
       if (store.currentPokemon > 1) {
         store.decrement()
-        this.json = await this.fetchPokemon(store.currentPokemon)
+        this.pokeInfo = await this.fetchPokemon(store.currentPokemon)
+        store.evolutionFamily = await store.fetchEvolutionData(store.currentPokemon)
       }
     },
-  }
+  },
 }
 </script>
 
@@ -52,13 +58,11 @@ export default {
   <HeaderPokemon @search="search" />
   <div id='container'>
     <div id='pkmnbox'>
-      <PokemonBox @increment='increment' @decrement='decrement' v-if='json' :info=json />
+      <PokemonBox @increment='increment' @decrement='decrement' v-if='this.pokeInfo' :info=this.pokeInfo />
     </div>
     <div id="other_infos">
-      <AttaquesPokemon v-if='json' :info=json></AttaquesPokemon>
-      <Suspense>
-        <Evolutions/>
-      </Suspense>
+      <AttaquesPokemon v-if='this.pokeInfo' :info=this.pokeInfo ></AttaquesPokemon>
+      <Evolutions @search="search"/>
     </div>
   </div>
 </template>
