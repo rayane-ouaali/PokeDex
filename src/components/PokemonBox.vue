@@ -78,7 +78,7 @@ export default {
   #pokemonBox {
     flex-direction: row;
     width: 80%;
-    margin-top: 64px;
+    margin-top: 32px;
     border-radius: 16px;
     margin-right: auto;
     margin-left: auto;

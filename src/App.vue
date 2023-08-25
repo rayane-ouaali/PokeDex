@@ -4,10 +4,11 @@ import PokemonBox from './components/PokemonBox.vue'
 import AttaquesPokemon from './components/Attaques.vue'
 import Evolutions from "./components/Evolutions.vue";
 import { store } from './store/store'
+import Resistances from "./components/Resistances.vue";
 
 export default {
   emits: ['search', 'update:modelValue'],
-  components: { Evolutions, AttaquesPokemon, HeaderPokemon, PokemonBox },
+  components: { Resistances, Evolutions, AttaquesPokemon, HeaderPokemon, PokemonBox },
   async created() {
     this.pokeInfo = await this.fetchPokemon(store.currentPokemon)
     store.evolutionData = await store.fetchEvolutionData(store.currentPokemon)
@@ -85,6 +86,7 @@ export default {
     <div id="other_infos">
       <AttaquesPokemon v-if='this.pokeInfo' :info=this.pokeInfo ></AttaquesPokemon>
       <Evolutions :v-if='this.pokeEvolutionInfo' :info=this.pokeEvolutionInfo @search="search"/>
+      <Resistances/>
     </div>
   </div>
 </template>
