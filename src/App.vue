@@ -3,12 +3,12 @@ import HeaderPokemon from './components/Header.vue'
 import PokemonBox from './components/PokemonBox.vue'
 import AttaquesPokemon from './components/Attaques.vue'
 import Evolutions from "./components/Evolutions.vue";
-import { store } from './store/store'
+import {store} from './store/store'
 import Resistances from "./components/Resistances.vue";
 
 export default {
   emits: ['search', 'update:modelValue'],
-  components: { Resistances, Evolutions, AttaquesPokemon, HeaderPokemon, PokemonBox },
+  components: {Resistances, Evolutions, AttaquesPokemon, HeaderPokemon, PokemonBox},
   async created() {
     this.pokeInfo = await this.fetchPokemon(store.currentPokemon)
     store.evolutionData = await store.fetchEvolutionData(store.currentPokemon)
@@ -16,6 +16,8 @@ export default {
     this.pokeEvolutionInfo.evolutionFamily = store.evolutionFamily
     store.evolutionImages = await store.fetchEvolutionsImg(store.evolutionFamily)
     this.pokeEvolutionInfo.evolutionImages = store.evolutionImages
+    store.damageRelations = await store.fetchDamageRelations(store.currentPokemon)
+    this.damageRelationsInfo = store.damageRelations
   },
   data() {
     return {
@@ -24,7 +26,8 @@ export default {
       pokeEvolutionInfo: {
         evolutionFamily: store.evolutionFamily,
         evolutionImages: store.evolutionImages
-      }
+      },
+      damageRelationsInfo: store.damageRelations
     }
   },
   methods: {
@@ -39,7 +42,7 @@ export default {
     },
     async search(pokemonName) {
       const pkmn = await this.fetchPokemon(pokemonName)
-      if(pkmn){
+      if (pkmn) {
         this.pokeInfo = pkmn
         store.currentPokemon = pkmn.id
         store.evolutionData = await store.fetchEvolutionData(store.currentPokemon)
@@ -47,6 +50,8 @@ export default {
         this.pokeEvolutionInfo.evolutionFamily = store.evolutionFamily
         store.evolutionImages = await store.fetchEvolutionsImg(store.evolutionFamily)
         this.pokeEvolutionInfo.evolutionImages = store.evolutionImages
+        store.damageRelations = await store.fetchDamageRelations(store.currentPokemon)
+        this.damageRelationsInfo = store.damageRelations
       }
     },
     async increment() {
@@ -58,6 +63,8 @@ export default {
         this.pokeEvolutionInfo.evolutionFamily = store.evolutionFamily
         store.evolutionImages = await store.fetchEvolutionsImg(store.evolutionFamily)
         this.pokeEvolutionInfo.evolutionImages = store.evolutionImages
+        store.damageRelations = await store.fetchDamageRelations(store.currentPokemon)
+        this.damageRelationsInfo = store.damageRelations
       }
     },
     async decrement() {
@@ -67,10 +74,10 @@ export default {
         store.evolutionData = await store.fetchEvolutionData(store.currentPokemon)
         store.evolutionFamily = await store.getEvolutionFamily(store.evolutionData)
         this.pokeEvolutionInfo.evolutionFamily = store.evolutionFamily
-        console.log(store.evolutionFamily)
         store.evolutionImages = await store.fetchEvolutionsImg(store.evolutionFamily)
         this.pokeEvolutionInfo.evolutionImages = store.evolutionImages
-        console.log(store.evolutionImages)
+        store.damageRelations = await store.fetchDamageRelations(store.currentPokemon)
+        this.damageRelationsInfo = store.damageRelations
       }
     },
   },
@@ -78,15 +85,15 @@ export default {
 </script>
 
 <template>
-  <HeaderPokemon @search="search" />
+  <HeaderPokemon @search="search"/>
   <div id='container'>
     <div id='pkmnbox'>
       <PokemonBox @increment='increment' @decrement='decrement' v-if='this.pokeInfo' :info=this.pokeInfo />
     </div>
     <div id="other_infos">
-      <AttaquesPokemon v-if='this.pokeInfo' :info=this.pokeInfo ></AttaquesPokemon>
+      <AttaquesPokemon v-if='this.pokeInfo' :info=this.pokeInfo></AttaquesPokemon>
       <Evolutions :v-if='this.pokeEvolutionInfo' :info=this.pokeEvolutionInfo @search="search"/>
-      <Resistances/>
+      <Resistances :v-if='this.damageRelationsInfo' :info=this.damageRelationsInfo />
     </div>
   </div>
 </template>
@@ -98,7 +105,7 @@ export default {
 
 }
 
-#other_infos{
+#other_infos {
   display: flex;
   width: 80%;
   margin-right: auto;

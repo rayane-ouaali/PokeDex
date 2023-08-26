@@ -6,6 +6,7 @@ export const store = reactive({
     evolutionData: null,
     evolutionImages: null,
     evolutionFamily: null,
+    damageRelations: null,
     increment() {
         this.currentPokemon++
     },
@@ -61,6 +62,15 @@ export const store = reactive({
                 name: evol.chain.evolves_to[0].species.name,
                 url: `https://pokeapi.co/api/v2/pokemon/${evol.chain.evolves_to[0].species.name}`
             }]
+        }
+    },
+    fetchDamageRelations: async (currentPoke) => {
+        try {
+            const pokemon = await fetch(`https://api-pokemon-fr.vercel.app/api/v1/pokemon/${currentPoke}`)
+                .then((response) => response.json())
+            return pokemon.resistances
+        } catch (e) {
+            console.log(e)
         }
     },
 })

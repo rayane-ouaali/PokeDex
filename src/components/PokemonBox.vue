@@ -47,7 +47,7 @@ export default {
     <div id='container'>
       <div id='pokemonInfo'>
         <h1>#{{ this.info.id }} | <span>{{ getName }}</span></h1>
-        <img v-for='(type, index) in getTypes' :src='`types/${type}.png`' v-bind:key='index' alt="">
+        <img v-for='(type, index) in getTypes' :src='`types/en/${type}.png`' v-bind:key='index' alt="">
       </div>
       <div id='info'>
         <img v-if='getImg' :src=getImg :alt=getName>
