@@ -66,9 +66,9 @@ export const store = reactive({
     },
     fetchDamageRelations: async (currentPoke) => {
         try {
-            const pokemon = await fetch(`https://api-pokemon-fr.vercel.app/api/v1/pokemon/${currentPoke}`)
+            const pokemon = await fetch(`https://pokebuildapi.fr/api/v1/pokemon/${currentPoke}`)
                 .then((response) => response.json())
-            return pokemon.resistances
+            return pokemon.apiResistances
         } catch (e) {
             console.log(e)
         }

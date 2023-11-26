@@ -16,12 +16,11 @@ export default {
       }
       if(damageRelationData){
         damageRelationData.forEach((type) => {
-          if(type.multiplier === 0.25) sortedDamageRelations.stronglyResists.push(type)
-          if(type.multiplier === 0.5) sortedDamageRelations.resists.push(type)
-          if(type.multiplier === 2) sortedDamageRelations.weak.push(type)
-          if(type.multiplier === 4) sortedDamageRelations.veryWeak.push(type)
+          if(type.damage_multiplier === 0.25) sortedDamageRelations.stronglyResists.push(type)
+          if(type.damage_multiplier === 0.5) sortedDamageRelations.resists.push(type)
+          if(type.damage_multiplier === 2) sortedDamageRelations.weak.push(type)
+          if(type.damage_multiplier === 4) sortedDamageRelations.veryWeak.push(type)
         })
-        console.log(sortedDamageRelations)
         return sortedDamageRelations
       }
       return sortedDamageRelations
