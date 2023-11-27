@@ -1,4 +1,6 @@
 <script>
+import {ref} from "vue";
+
 export default {
   name: 'Jauge-pokemon',
   props: ['stat', 'namestat'],
@@ -18,7 +20,7 @@ export default {
       return this.hslToHex(this.stat > 180 ? 180 : this.stat)
     },
     statSize() {
-      return this.stat * 1.95
+      return this.stat * screen.width / 1000
     },
     statName() {
       if (this.namestat == 1) {
@@ -70,7 +72,6 @@ export default {
 
 #bar {
   height: 16px;
-  width: 200px;
   border-radius: 12px;
   background-color: black;
   transition: width 0.6s ease-in-out;

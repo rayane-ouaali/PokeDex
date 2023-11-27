@@ -38,10 +38,7 @@ export default {
   flex-direction: column;
   height: 364px;
   width: 40%;
-  margin-top: 24px;
   border-radius: 16px;
-  margin-left: 5%;
-  margin-right: 5%;
   padding: 32px;
   background-color: rgba(255, 255, 255, 0.8);
 }

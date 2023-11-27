@@ -1,14 +1,16 @@
 <script>
 import Jauge from './Jauge.vue'
+import PokemonInfo from "@/components/PokemonInfo.vue";
+
 import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue'
 import ChevronRight from 'vue-material-design-icons/ChevronRight.vue'
-
 export default {
   name: 'PokemonBox',
   components: {
     ChevronLeft,
     ChevronRight,
-    Jauge
+    Jauge,
+    PokemonInfo
   },
   props: ['info'],
   computed: {
@@ -45,13 +47,7 @@ export default {
       <ChevronLeft :size='48' />
     </button>
     <div id='container'>
-      <div id='pokemonInfo'>
-        <h1>#{{ this.info.id }} | <span>{{ getName }}</span></h1>
-        <img v-for='(type, index) in getTypes' :src='`types/en/${type}.png`' v-bind:key='index' alt="">
-      </div>
-      <div id='info'>
-        <img v-if='getImg' :src=getImg :alt=getName>
-      </div>
+      <PokemonInfo :info="this.info" />
       <div id='stats'>
         <Jauge v-for='(stat, index) in getStats' v-bind:key='index' :stat='stat' :namestat='index + 1' />
         Total : {{ getSum }}
@@ -70,49 +66,38 @@ export default {
   width: 100%;
 }
 
-@media (min-width: 600px) {
+#pokemonBox {
+  display: flex;
+  margin-top: 32px;
+  width: 80%;
+  border-radius: 16px;
+  background-color: rgb(160, 95, 95, 0.8);
+}
+
+@media (max-height: 1000px) {
+  #pokemonBox {
+    width: 80%;
+    margin-top: 32px;
+    border-radius: 16px;
+    padding: 32px;
+  }
+  #container {
+    margin-left: 40px;
+  }
+}
+
+@media (min-width: 1000px) {
   #container {
     flex-direction: row;
   }
 
   #pokemonBox {
-    flex-direction: row;
     width: 80%;
+    flex-direction: row;
     margin-top: 32px;
     border-radius: 16px;
-    margin-right: auto;
-    margin-left: auto;
     padding: 32px;
-    background-color: rgb(160, 95, 95, 0.8);
   }
-}
-
-@media (max-width: 600px) {
-  #pokemonBox {
-    flex-direction: column;
-    background-color: rgb(160, 95, 95, 0.8);
-  }
-}
-
-#pokemonBox {
-  display: flex;
-}
-
-#info {
-  display: flex;
-  flex-direction: column;
-}
-
-img {
-  max-height: 300px;
-  max-width: 300px;
-  margin-right: 32px;
-}
-
-#pokemonInfo {
-  display: inline-block;
-  margin-top: auto;
-  width: 280px;
 }
 
 #stats {

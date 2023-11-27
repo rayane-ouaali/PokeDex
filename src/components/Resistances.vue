@@ -9,6 +9,7 @@ export default {
     getDamageRelations() {
       const damageRelationData = this.info
       const sortedDamageRelations = {
+        immune: [],
         resists: [],
         stronglyResists: [],
         weak: [],
@@ -16,6 +17,7 @@ export default {
       }
       if(damageRelationData){
         damageRelationData.forEach((type) => {
+          if(type.damage_multiplier === 0) sortedDamageRelations.immune.push(type)
           if(type.damage_multiplier === 0.25) sortedDamageRelations.stronglyResists.push(type)
           if(type.damage_multiplier === 0.5) sortedDamageRelations.resists.push(type)
           if(type.damage_multiplier === 2) sortedDamageRelations.weak.push(type)
@@ -32,6 +34,12 @@ export default {
 <template>
   <div class="resistances">
     <p style="font-size: large">Damage relations</p>
+    <div v-if="getDamageRelations.immune.length">
+      <p>Immune to (x0):</p>
+      <div class="typesImg">
+        <img v-for="type in getDamageRelations.immune" :src='`types/fr/${type.name.toLowerCase()}.png`' alt="">
+      </div>
+    </div>
     <div v-if="getDamageRelations.stronglyResists.length">
       <p>Strongly resists (x0.25):</p>
       <div class="typesImg">
@@ -65,7 +73,6 @@ export default {
   flex-direction: column;
   height: 364px;
   width: 25%;
-  margin-top: 24px;
   border-radius: 16px;
   padding: 32px;
   background-color: rgba(115, 255, 7, 0.8);

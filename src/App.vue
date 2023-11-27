@@ -102,19 +102,37 @@ export default {
 #container {
   width: 100%;
   height: 100%;
-
 }
 
 #other_infos {
   display: flex;
-  width: 80%;
-  margin-right: auto;
-  margin-left: auto;
+  margin: 24px auto auto;
+  gap: 24px;
+}
+
+@media (max-width: 1280px) {
+  #other_infos {
+    flex-direction: column;
+    align-items: center;
+
+    > div {
+      width: 80%
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  #other_infos {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
+  }
 }
 
 #pkmnbox {
   width: 100%;
   height: 100%;
   display: flex;
+  justify-content: center;
 }
 </style>
