@@ -7,7 +7,7 @@ export default {
       return this.info.sprites.other["official-artwork"].front_default
     },
     getName() {
-      return this.info.name
+      return this.info.name.charAt(0).toUpperCase() + this.info.name.substring(1)
     },
     getTypes() {
       return this.info.types.map((type) => {
@@ -21,7 +21,7 @@ export default {
 <template>
   <div class="container">
     <div id='pokemonInfo'>
-      <h1>#{{ this.info.id }} | <span>{{ getName }}</span></h1>
+      <h1>#{{ this.info.id }} | <span >{{ getName }}</span></h1>
       <img v-for='(type, index) in getTypes' :src='`types/en/${type}.png`' v-bind:key='index' alt="">
     </div>
     <div id='info'>
