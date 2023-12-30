@@ -47,13 +47,12 @@ export default {
 </script>
 
 <template>
-  <div id='container'>
+  <div id='group'>
     <div id='statName'>
-      <p>{{ statName }}</p>
+      <p>{{ statName }} {{ stat }}</p>
     </div>
     <div id='jauge'>
       <div id='bar' :style="{ 'width': statSize + 'px', 'background-color': statColor }" />
-      <p>{{ stat }}</p>
     </div>
   </div>
 
@@ -62,12 +61,12 @@ export default {
 <style scoped>
 #statName {
   margin-right: 10px;
-  width: 65px;
+  width: fit-content;
 }
 
-#container {
+#group {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 #bar {
