@@ -16,7 +16,7 @@ export default {
 </script>
 
 <template>
-  <div class='littleBox' id='evolutions'>
+  <div id='evolutions'>
     <p>Evolution family :</p>
     <div class="pokemons">
       <template v-for="(pokemon, index) in info.evolutionFamily" v-bind:key='index'>
@@ -36,7 +36,7 @@ export default {
 #evolutions {
   display: flex;
   flex-direction: column;
-  height: 364px;
+  min-height: 364px;
   width: 40%;
   border-radius: 16px;
   padding: 32px;
@@ -47,6 +47,7 @@ export default {
   margin-top: 10%;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   text-align: center;
   align-items: center;
 }

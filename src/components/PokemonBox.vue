@@ -44,7 +44,7 @@ export default {
 <template>
   <div id='pokemonBox'>
     <button type='button' @click="this.$emit('decrement')">
-      <ChevronLeft :size='48' />
+      <ChevronLeft />
     </button>
     <div id='container'>
       <PokemonInfo :info="this.info" />
@@ -54,7 +54,7 @@ export default {
       </div>
     </div>
     <button type='button' @click="this.$emit('increment')">
-      <ChevronRight :size='48' />
+      <ChevronRight />
     </button>
   </div>
 </template>
@@ -63,55 +63,11 @@ export default {
 #container {
   display: flex;
   flex-direction: column;
-  width: 100%;
-}
-
-#pokemonBox {
-  display: flex;
-  margin-top: 32px;
-  width: 80%;
-  border-radius: 16px;
-  background-color: rgb(160, 95, 95, 0.8);
-}
-
-@media (max-height: 1000px) {
-  #pokemonBox {
-    width: 80%;
-    margin-top: 32px;
-    border-radius: 16px;
-    padding: 32px;
-  }
-  #container {
-    margin-left: 40px;
-  }
-}
-
-@media (min-width: 1000px) {
-  #container {
-    flex-direction: row;
-  }
-
-  #pokemonBox {
-    width: 80%;
-    flex-direction: row;
-    margin-top: 32px;
-    border-radius: 16px;
-    padding: 32px;
-  }
-}
-
-#stats {
-  display: inline-block;
-  margin-right: auto;
-}
-
-span {
-  text-transform: capitalize;
 }
 
 button {
-  width: fit-content;
-  height: fit-content;
+  width: 32px;
+  height: 32px;
   margin-top: auto;
   margin-bottom: auto;
   background-color: unset;
@@ -120,6 +76,72 @@ button {
   cursor: pointer;
   padding: 4px;
   transition: background-color 0.3s ease;
+}
+
+#stats {
+  display: flex;
+  flex-direction: column;
+  margin-left: 48px;
+}
+
+#pokemonBox {
+  display: flex;
+  margin-top: 32px;
+  width: 100%;
+  border-radius: 16px;
+  justify-content: space-between;
+  background-color: rgb(160, 95, 95, 0);
+}
+
+@media (min-width: 700px) {
+  #pokemonBox {
+    width: 80%;
+    margin-top: 32px;
+    border-radius: 16px;
+    padding: 8px;
+    background-color: rgb(160, 95, 95, 0.8);
+  }
+  #container {
+    margin-left: 40px;
+  }
+  #stats {
+    margin-left: 0;
+  }
+  button {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 1000px) {
+  #pokemonBox {
+    margin-top: 32px;
+    border-radius: 16px;
+    padding: 32px;
+  }
+}
+
+@media (min-width: 1000px) {
+  #container {
+    flex-direction: row;
+    margin-left: 40px;
+  }
+
+  #pokemonBox {
+    width: 80%;
+    flex-direction: row;
+    border-radius: 16px;
+    padding: 32px;
+    justify-content: space-around;
+  }
+
+  button {
+    width: 48px;
+    height: 48px;
+  }
+}
+span {
+  text-transform: capitalize;
 }
 
 button:hover {

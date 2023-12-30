@@ -104,6 +104,13 @@ export default {
   height: 100%;
 }
 
+#pkmnbox {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 #other_infos {
   display: flex;
   margin: 24px auto auto;
@@ -127,12 +134,5 @@ export default {
     justify-content: space-between;
     width: 80%;
   }
-}
-
-#pkmnbox {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
 }
 </style>

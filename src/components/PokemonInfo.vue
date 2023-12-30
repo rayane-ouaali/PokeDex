@@ -35,6 +35,12 @@ export default {
   display: flex;
 }
 
+#info {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+}
+
 img {
   max-height: 300px;
   max-width: 300px;
@@ -43,8 +49,9 @@ img {
 
 #pokemonInfo {
   display: inline-block;
+  justify-content: center;
   margin-top: auto;
-  width: 280px;
+  width: fit-content;
 }
 
 @media (max-width: 1520px) {
@@ -64,15 +71,4 @@ img {
   }
 }
 
-@media (max-width: 1000px) {
-  #pokemonInfo {
-    width: 280px;
-  }
-}
-
-#info {
-  display: flex;
-  height: 100%;
-  align-items: center;
-}
 </style>
