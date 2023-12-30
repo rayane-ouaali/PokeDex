@@ -5,8 +5,18 @@
   height: 100%;
   width: 100%;
   font-weight: normal;
-  background-image: url("/background.jpg");
+  background-image: linear-gradient(160deg, blueviolet, green, blue, red);
   background-size: cover;
+}
+
+h1, p {
+  color: #181818;
+}
+
+@media (min-width: 700px) {
+  #app {
+    background-image: url("/background.jpg");
+  }
 }
 
 a,

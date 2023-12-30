@@ -50,7 +50,7 @@ export default {
       <PokemonInfo :info="this.info" />
       <div id='stats'>
         <Jauge v-for='(stat, index) in getStats' v-bind:key='index' :stat='stat' :namestat='index + 1' />
-        Total : {{ getSum }}
+        <p>Total : {{ getSum }}</p>
       </div>
     </div>
     <button type='button' @click="this.$emit('increment')">

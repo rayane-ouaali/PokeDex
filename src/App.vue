@@ -115,6 +115,7 @@ export default {
   display: flex;
   margin: 24px auto auto;
   gap: 24px;
+  padding-bottom: 32px;
 }
 
 @media (max-width: 1280px) {

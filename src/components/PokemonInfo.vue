@@ -54,6 +54,13 @@ img {
   width: fit-content;
 }
 
+@media (max-width: 700px) {
+  #info {
+    width: 180px;
+  }
+}
+
+
 @media (max-width: 1520px) {
   #pokemonInfo {
     width: 200px;

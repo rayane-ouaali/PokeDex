@@ -20,7 +20,7 @@ export default {
       return this.hslToHex(this.stat > 180 ? 180 : this.stat)
     },
     statSize() {
-      return this.stat * screen.width / 1000
+      return screen.width > 1000 ? this.stat * screen.width / 1000 : this.stat * screen.width / 700
     },
     statName() {
       if (this.namestat == 1) {
@@ -49,7 +49,7 @@ export default {
 <template>
   <div id='container'>
     <div id='statName'>
-      {{ statName }}
+      <p>{{ statName }}</p>
     </div>
     <div id='jauge'>
       <div id='bar' :style="{ 'width': statSize + 'px', 'background-color': statColor }" />
