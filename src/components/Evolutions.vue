@@ -18,7 +18,7 @@ export default {
 <template>
   <div id='evolutions'>
     <p>Evolution family :</p>
-    <div class="pokemons">
+    <div class="pokemons" v-if="info.evolutionFamily">
       <template v-for="(pokemon, index) in info.evolutionFamily" v-bind:key='index'>
         <a @click="this.$emit('search', pokemon.name)">
           <div class="pokemon">
@@ -28,6 +28,9 @@ export default {
         </a>
         <ChevronRightIcon v-if="info.evolutionFamily.length - 1 > index" :size="24"/>
       </template>
+    </div>
+    <div v-else class="noevo">
+      <h2>This pokemon has no evolution family</h2>
     </div>
   </div>
 </template>
@@ -41,6 +44,14 @@ export default {
   border-radius: 16px;
   padding: 32px;
   background-color: rgba(255, 255, 255, 0.8);
+}
+
+.noevo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: auto;
+  margin-top: auto;
+  text-align: center;
 }
 
 .pokemons {

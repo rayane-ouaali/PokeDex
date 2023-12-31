@@ -14,20 +14,19 @@ export default {
     getMovesByType(method){
       return this.info.moves.filter(type => type.version_group_details[0].move_learn_method.name == method).map((move) => {
         return move.move.name
-      })
+      }).sort()
     }
   },
   computed: {
-    getLevel(){
-      return this.info.moves.filter(type => type.version_group_details[0].move_learn_method.name == "level-up").map((move) => {
-        return move.version_group_details[0].level_learned_at
-      })
-    },
     getLevelMoves(){
+      console.log(this.info.moves)
       return this.info.moves.filter(type => type.version_group_details[0].move_learn_method.name == "level-up").map((move) => {
-        return move.move.name
-      })
+        return {[move.move.name] : move.version_group_details[0].level_learned_at}
+      }).sort((a, b) => {
+        return Object.values(a) - Object.values(b);
+      });
     }
+    //TODO : feature de recherche d'attaque
   }
 }
 </script>
@@ -42,7 +41,7 @@ export default {
       <option value="egg">Egg</option>
     </select>
     <div id="abilities" v-if='currentLearnMethod == "level-up"'>
-      <AbilityBox v-for='(move, index) in getLevelMoves' v-bind:key="`${index}ability`" :name=move :level=getLevel[index]></AbilityBox>
+      <AbilityBox v-for='(move, index) in getLevelMoves' v-bind:key="`${index}ability`" :name=Object.keys(move).toString() :level=Object.values(move).toString()></AbilityBox>
     </div>
     <div id="abilities" v-else>
       <AbilityBox v-for='(move, index) in getMovesByType(currentLearnMethod)' v-bind:key="`${index}ability`" :name=move></AbilityBox>

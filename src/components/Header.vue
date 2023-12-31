@@ -1,5 +1,6 @@
 <template>
   <div id='header'>
+    <!-- TODO : bouton sur le texte PokeDex menu deroulant sur des pages (liste de tout les pokemons, attaques)-->
     <p>PokeDex</p>
     <div id='searchBox'>
       <input id='pokemonName' v-model='this.textField'>
@@ -17,14 +18,6 @@ export default {
       textField: ''
     }
   },
-  methods:{
-    test(){
-      console.log(this.textField)
-    }
-  },
-  updated() {
-    console.log(this.textField)
-  }
 }
 </script>
 
